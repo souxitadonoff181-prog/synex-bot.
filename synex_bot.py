@@ -13,7 +13,6 @@ import random
 # SYNEX — CONFIGURAÇÕES
 # ==============================================
 NOME_SISTEMA = "Synex"
-import os
 
 TOKEN = os.getenv("TOKEN")
 ADMIN_IDS = [int(os.getenv("ADMIN_ID"))]
@@ -118,13 +117,13 @@ class AvaliarView(View):
 
     @ui.button(label="⭐", style=discord.ButtonStyle.red)
     async def b1(self, i, b): await self.nota(i, 1)
-    @ui.button(label="⭐⭐", style=discord.ButtonStyle.Red)
+    @ui.button(label="⭐⭐", style=discord.ButtonStyle.red)
     async def b2(self, i, b): await self.nota(i, 2)
-    @ui.button(label="⭐⭐⭐", style=discord.ButtonStyle.Blurple)
+    @ui.button(label="⭐⭐⭐", style=discord.ButtonStyle.blurple)
     async def b3(self, i, b): await self.nota(i, 3)
-    @ui.button(label="⭐⭐⭐⭐", style=discord.ButtonStyle.Green)
+    @ui.button(label="⭐⭐⭐⭐", style=discord.ButtonStyle.green)
     async def b4(self, i, b): await self.nota(i, 4)
-    @ui.button(label="⭐⭐⭐⭐⭐", style=discord.ButtonStyle.Green)
+    @ui.button(label="⭐⭐⭐⭐⭐", style=discord.ButtonStyle.green)
     async def b5(self, i, b): await self.nota(i, 5)
 
     async def nota(self, inter, valor):
@@ -219,7 +218,7 @@ async def comprar(inter, produto_id:str):
         return await inter.response.send_message("❌ Produto não encontrado!", ephemeral=True)
     
     class Pag(View):
-        @ui.button(label="💳 PIX", style=discord.ButtonStyle.Green)
+        @ui.button(label="💳 PIX", style=discord.ButtonStyle.green)
         async def pix_btn(self, i, b):
             chave = CONFIG.get("chave_pix")
             if not chave:
@@ -247,7 +246,7 @@ async def painel_vendas(inter, produto_id:str):
         return await inter.response.send_message("❌ Produto não existe!", ephemeral=True)
     
     class Painel(View):
-        @ui.button(label="🛒 Comprar Agora", style=discord.ButtonStyle.Green)
+        @ui.button(label="🛒 Comprar Agora", style=discord.ButtonStyle.green)
         async def comprar_btn(self, i, b):
             await comprar.callback(i, produto_id)
     
@@ -323,5 +322,14 @@ async def fechar(inter):
     except:
         pass
     
-    # Aqui continua o resto do código de fechar...
     await inter.channel.delete()
+
+# ==============================================
+# INICIAR BOT
+# ==============================================
+@client.event
+async def on_ready():
+    await tree.sync()
+    print(f"✅ Bot conectado como {client.user}")
+
+client.run(TOKEN)
