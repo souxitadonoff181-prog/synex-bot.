@@ -309,8 +309,19 @@ async def fechar(inter):
     t = TICKETS.get(str(inter.channel.id))
     if not t:
         return await inter.response.send_message("❌ Não é ticket!", ephemeral=True)
+    
     atendente = t.get("assumido") or inter.user.id
     try:
         u = client.get_user(t["user"])
         if u:
-            emb = discord.Embed(title="❌ TICKET FECHADO", description=f"Fechado por {inter.user
+            emb = discord.Embed(
+                title="❌ TICKET FECHADO",
+                description=f"Fechado por {inter.user.mention}",
+                color=0xff4444
+            )
+            await u.send(embed=emb)
+    except:
+        pass
+    
+    # Aqui continua o resto do código de fechar...
+    await inter.channel.delete()
