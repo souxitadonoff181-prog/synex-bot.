@@ -116,7 +116,7 @@ class AvaliarView(View):
         super().__init__(timeout=None)
         self.atendente_id = atendente_id
 
-    @ui.button(label="⭐", style=discord.ButtonStyle.Red)
+    @ui.button(label="⭐", style=discord.ButtonStyle.red)
     async def b1(self, i, b): await self.nota(i, 1)
     @ui.button(label="⭐⭐", style=discord.ButtonStyle.Red)
     async def b2(self, i, b): await self.nota(i, 2)
